@@ -697,7 +697,7 @@ const SpiderField: React.FC<CardsFieldsProps> = ({
 
       <div
         className="absolute flex items-start gap-x-2"
-        style={{ left: 5, bottom: 5 }}
+        style={{ left: 10, bottom: 50 }}
       >
         <Button
           className="flex items-center gap-x-2 bg-teal-400"

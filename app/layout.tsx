@@ -19,9 +19,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       
-      <body className={cn("bg-gradient-to-b from-green-800 to-green-500 min-h-screen", inter.className)} >
+      <body className={ inter.className} >
+        <div className='w-full absolute bg-gradient-to-b from-green-800 to-green-500 min-h-screen'>
       <Navbar />
         {children}
+        </div>
       </body>
     </html>
   )
