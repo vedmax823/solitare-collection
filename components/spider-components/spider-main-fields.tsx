@@ -23,7 +23,7 @@ interface CardsFieldsProps {
   selectCardHandle: (cards: GCard[] | undefined) => void;
   handleSetGameState: (newGameState: GameState) => void;
   handleOpen: () => void;
-  handleSetIsGameOver : () => void;
+  handleSetIsGameOver: () => void;
 }
 
 type HintAndCount = {
@@ -42,7 +42,7 @@ const SpiderField: React.FC<CardsFieldsProps> = ({
   selectCardHandle,
   handleSetGameState,
   handleOpen,
-  handleSetIsGameOver
+  handleSetIsGameOver,
 }) => {
   const [selectedLine, setSelectedLine] = useState<number>();
   const [topLeftAdditional, setTopLeftAdditional] = useState<FieldLeftTopType>({
@@ -51,7 +51,7 @@ const SpiderField: React.FC<CardsFieldsProps> = ({
   });
   const [lightAdditional, setLightAdditional] = useState(false);
   const [isMoving, setIsMoving] = useState(false);
-  const [emptyFieldModal, setEmptyFieldOpen] = useState(false)
+  const [emptyFieldModal, setEmptyFieldOpen] = useState(false);
   const [selfMoving, setSelfMoving] = useState<{
     cards: GCard[];
     topEnd: number;
@@ -82,12 +82,12 @@ const SpiderField: React.FC<CardsFieldsProps> = ({
   };
 
   const onOpenEmptyField = () => {
-    setEmptyFieldOpen(() => true)
-  }
+    setEmptyFieldOpen(() => true);
+  };
 
   const onCloseEmptyField = () => {
-    setEmptyFieldOpen(() => false)
-  }
+    setEmptyFieldOpen(() => false);
+  };
   const setMovingTrue = () => setIsMoving(() => true);
   const setMovingFalse = () => setIsMoving(() => false);
 
@@ -204,7 +204,7 @@ const SpiderField: React.FC<CardsFieldsProps> = ({
     if (gameState.additional.length - 1 == index) {
       const indexLine = gameState.lines.findIndex((line) => line.length == 0);
       if (indexLine !== -1) {
-        onOpenEmptyField()
+        onOpenEmptyField();
         return;
       }
       setMovingTrue();
@@ -231,7 +231,8 @@ const SpiderField: React.FC<CardsFieldsProps> = ({
       );
       const top = !hints.hints[count].cardToMove
         ? gameState.linesCoords[hints.hints[count].moveToIndex].top
-        : hints.hints[count].cardToMove!.top + Math.round(hints.hints[count].cardToMove!.height / 5);
+        : hints.hints[count].cardToMove!.top +
+          Math.round(hints.hints[count].cardToMove!.height / 5);
       const left = !hints.hints[count].cardToMove
         ? gameState.linesCoords[hints.hints[count].moveToIndex].left
         : hints.hints[count].cardToMove!.left;
@@ -301,7 +302,11 @@ const SpiderField: React.FC<CardsFieldsProps> = ({
       newCoords = {
         top:
           gameState.lines[searchLine][gameState.lines[searchLine].length - 1]
-            .top + Math.round(gameState.lines[searchLine][gameState.lines[searchLine].length - 1].height / 5),
+            .top +
+          Math.round(
+            gameState.lines[searchLine][gameState.lines[searchLine].length - 1]
+              .height / 5
+          ),
         left: gameState.lines[searchLine][
           gameState.lines[searchLine].length - 1
         ].left,
@@ -386,7 +391,11 @@ const SpiderField: React.FC<CardsFieldsProps> = ({
       newCoords = {
         top:
           gameState.lines[searchLine][gameState.lines[searchLine].length - 1]
-            .top + Math.round(gameState.lines[searchLine][gameState.lines[searchLine].length - 1].height / 5),
+            .top +
+          Math.round(
+            gameState.lines[searchLine][gameState.lines[searchLine].length - 1]
+              .height / 5
+          ),
         left: gameState.lines[searchLine][
           gameState.lines[searchLine].length - 1
         ].left,
@@ -523,7 +532,7 @@ const SpiderField: React.FC<CardsFieldsProps> = ({
     }
     const arrHints = gameState.findHint();
     if (arrHints.length == 0 && !isMoving && !gameState.additional[0]) {
-      handleSetIsGameOver()
+      handleSetIsGameOver();
       handleOpen();
       return;
     }
@@ -560,7 +569,30 @@ const SpiderField: React.FC<CardsFieldsProps> = ({
 
   return (
     <div className="w-full">
-      <div className="w-full flex justify-between" style={{ height: "10vw" }}>
+      <div className="w-full flex items-start gap-x-2 pl-4">
+        <Button
+          className="flex items-center gap-x-2 bg-teal-400"
+          onClick={handleOpen}
+        >
+          New Game
+          <Gamepad2 />
+        </Button>
+        <Button
+          className="flex items-center gap-x-2 bg-teal-400"
+          onClick={clickOnUndo}
+        >
+          Undo
+          <Undo2 />
+        </Button>
+        <Button
+          className="flex items-center gap-x-2 bg-teal-400"
+          onClick={hintOnClick}
+        >
+          Hint
+          <Lightbulb />
+        </Button>
+      </div>
+      <div className="w-full flex justify-between">
         <div className="m-3 rounded-xl relative">
           <StopCardComponent
             handleSetTopLeftAdditional={handleSetTopLeftAdditional}
@@ -598,7 +630,10 @@ const SpiderField: React.FC<CardsFieldsProps> = ({
               <EmptyCardComponent indexLine={indexLine} gameState={gameState} />
             </div>
             {gameState.lines[indexLine].map((cart, index) => {
-              const space = gameState.lines[indexLine].length > 19 ? Math.round(cart.height / 10) : Math.round(cart.height / 5)
+              const space =
+                gameState.lines[indexLine].length > 19
+                  ? Math.round(cart.height / 10)
+                  : Math.round(cart.height / 5);
               const top = index * space;
               return (
                 <div
@@ -654,7 +689,6 @@ const SpiderField: React.FC<CardsFieldsProps> = ({
       {additionalOpenedBack &&
         additionalOpenedBack.cards.length > 0 &&
         additionalOpenedBack.cards.map((card, index) => {
-
           card.setClose();
           return (
             <MovingCard
@@ -695,33 +729,7 @@ const SpiderField: React.FC<CardsFieldsProps> = ({
         />
       ) : null}
 
-      <div
-        className="absolute flex items-start gap-x-2"
-        style={{ left: 10, bottom: 50 }}
-      >
-        <Button
-          className="flex items-center gap-x-2 bg-teal-400"
-          onClick={handleOpen}
-        >
-          New Game
-          <Gamepad2 />
-        </Button>
-        <Button
-          className="flex items-center gap-x-2 bg-teal-400"
-          onClick={clickOnUndo}
-        >
-          Undo
-          <Undo2 />
-        </Button>
-        <Button
-          className="flex items-center gap-x-2 bg-teal-400"
-          onClick={hintOnClick}
-        >
-          Hint
-          <Lightbulb />
-        </Button>
-      </div>
-      <ModalEmptyRow open={emptyFieldModal} onClose={onCloseEmptyField}  />
+      <ModalEmptyRow open={emptyFieldModal} onClose={onCloseEmptyField} />
     </div>
   );
 };
