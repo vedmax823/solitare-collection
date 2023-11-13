@@ -23,7 +23,7 @@ const MovingCard = ({ card, coorStart, coorEnd, gameState }: MovingCardProps) =>
         if (boxRef.current) {
             setCoords(coorEnd)
         }
-    }, [boxRef])
+    }, [boxRef, gameState])
 
     return (
         <div

@@ -14,7 +14,7 @@ export type FieldLeftTopType = {
 };
 
 const fieldLeftTopZero = { top: 0, left: 0 };
-
+export const FieldLeftTopContext = createContext<FieldLeftTopType>(fieldLeftTopZero)
 export const MouseCoordsContext = createContext<FieldLeftTopType | undefined>(
   undefined
 );
@@ -106,6 +106,7 @@ const Spider = () => {
 
   return (
     <MouseCoordsContext.Provider value={mouseCoords}>
+        <FieldLeftTopContext.Provider value={fieldLeftTop} >
         <div
           className="w-full"
           ref={refField}
@@ -131,6 +132,7 @@ const Spider = () => {
             isWon={isWon}
           />
         </div>
+        </FieldLeftTopContext.Provider>
     </MouseCoordsContext.Provider>
   );
 };

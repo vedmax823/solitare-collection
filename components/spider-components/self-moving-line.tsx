@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { GCard } from "@/models/gcard";
 import { GameState } from "@/models/game-state";
 import CardComponent from "./card-component";
+import { FieldLeftTopContext } from "./spider";
 
 interface SelfMovingLineComponentProps {
   cardLine: GCard[];
@@ -18,6 +19,8 @@ const SelfMovingLineComponent = ({
   leftEnd,
   gameState,
 }: SelfMovingLineComponentProps) => {
+  const fieldTopLeft = useContext(FieldLeftTopContext)
+
   const boxRef = useRef<HTMLDivElement>(null);
   const [coords, setCoords] = useState({
     top: cardLine[0].top,
@@ -28,7 +31,7 @@ const SelfMovingLineComponent = ({
     if (boxRef.current) {
       setCoords({ top: topEnd, left: leftEnd });
     }
-  }, [boxRef]);
+  }, [boxRef, gameState, fieldTopLeft]);
   return (
     <div
       className="ease-out duration-300 absolute"

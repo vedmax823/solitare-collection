@@ -5,6 +5,7 @@ import { GameState } from "@/models/game-state";
 import { GCard } from "@/models/gcard";
 import Image from "next/image";
 import { useContext, useEffect, useRef } from "react";
+import { FieldLeftTopContext } from "./spider";
 
 interface CardComponentProps {
   card: GCard;
@@ -14,13 +15,14 @@ interface CardComponentProps {
 
 const CardComponent: React.FC<CardComponentProps> = ({ card, gameState, borderLight }) => {
   const ref = useRef<HTMLDivElement>(null);
+  const fieldTopLeft = useContext(FieldLeftTopContext)
 
   useEffect(() => {
     if (ref.current) {
         const coor = ref.current.getBoundingClientRect()
         card.setTopLeft(coor.top, coor.left, coor.width, coor.height)
     }
-}, [ref, gameState])
+}, [ref, gameState, fieldTopLeft])
   return (
     <div 
         ref={ref}

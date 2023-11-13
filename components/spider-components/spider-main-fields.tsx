@@ -564,6 +564,7 @@ const SpiderField: React.FC<CardsFieldsProps> = ({
         <div className="m-3 rounded-xl relative">
           <StopCardComponent
             handleSetTopLeftAdditional={handleSetTopLeftAdditional}
+            gameState={gameState}
           />
           {gameState.additional.map((item, index) => (
             <AdditionalLine

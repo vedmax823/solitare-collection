@@ -1,23 +1,25 @@
 
 "use client";
 import Image from "next/image";
-import { FC, useEffect, useRef } from "react";
-import { FieldLeftTopType } from "./spider";
+import { FC, useContext, useEffect, useRef } from "react";
+import { FieldLeftTopContext, FieldLeftTopType } from "./spider";
+import { GameState } from "@/models/game-state";
 
 interface StopCardProps {
-  handleSetTopLeftAdditional : (coords : FieldLeftTopType) => void
+  handleSetTopLeftAdditional : (coords : FieldLeftTopType) => void,
+  gameState : GameState
 }
 
-const StopCardComponent : FC<StopCardProps> = ({ handleSetTopLeftAdditional  }) => {
+const StopCardComponent : FC<StopCardProps> = ({ handleSetTopLeftAdditional, gameState  }) => {
   const lineRef = useRef<HTMLDivElement>(null)
-  
+  const fieldTopLeft = useContext(FieldLeftTopContext)
 
   useEffect(() => {
       if (lineRef.current){
           const coor = lineRef.current.getBoundingClientRect()
           handleSetTopLeftAdditional({top : coor.top, left : coor.left})
       }
-  }, [lineRef])
+  }, [lineRef, gameState, fieldTopLeft])
   return (
     <div 
       ref={lineRef}
