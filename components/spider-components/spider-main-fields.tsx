@@ -8,15 +8,14 @@ import SolvedCardsComponent from "./solved-cards-component";
 import CardComponent from "./card-component";
 import EmptyCardComponent from "./empty-card-component";
 import { GCard } from "@/models/gcard";
-import {
-  FieldLeftTopType,
-} from "@/app/(routes)/spider/page";
+
 import SelfMovingLineComponent from "./self-moving-line";
 import SelectedCardsComponent from "./selected-cards";
 import MovingCard from "./moving-card";
 import Button from "../ui/button";
 import { Gamepad2, Lightbulb, Undo2 } from "lucide-react";
 import ModalEmptyRow from "../ui/modalEmptyRow";
+import { FieldLeftTopType } from "./spider";
 
 interface CardsFieldsProps {
   gameState: GameState;

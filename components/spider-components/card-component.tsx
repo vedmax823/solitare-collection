@@ -1,5 +1,5 @@
 "use client";
-import { FieldLeftTopContext } from "@/app/(routes)/spider/page";
+
 import { cn } from "@/lib/utils";
 import { GameState } from "@/models/game-state";
 import { GCard } from "@/models/gcard";
@@ -13,7 +13,6 @@ interface CardComponentProps {
 }
 
 const CardComponent: React.FC<CardComponentProps> = ({ card, gameState, borderLight }) => {
-  const fieldTopLeft = useContext(FieldLeftTopContext)
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -21,7 +20,7 @@ const CardComponent: React.FC<CardComponentProps> = ({ card, gameState, borderLi
         const coor = ref.current.getBoundingClientRect()
         card.setTopLeft(coor.top, coor.left, coor.width, coor.height)
     }
-}, [ref, fieldTopLeft, gameState])
+}, [ref, gameState])
   return (
     <div 
         ref={ref}

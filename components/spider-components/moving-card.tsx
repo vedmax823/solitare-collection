@@ -1,9 +1,10 @@
 "use client";
-import { FieldLeftTopType } from '@/app/(routes)/spider/page';
+
 import { GameState } from '@/models/game-state';
 import { GCard } from '@/models/gcard';
 import { useEffect, useRef, useState } from 'react';
 import CardComponent from './card-component';
+import { FieldLeftTopType } from './spider';
 
 
 interface MovingCardProps {

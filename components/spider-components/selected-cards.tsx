@@ -1,10 +1,11 @@
 "use client";
 
-import { MouseCoordsContext } from '@/app/(routes)/spider/page';
+
 import { GameState } from '@/models/game-state';
 import { GCard } from '@/models/gcard';
 import React, { useContext} from 'react';
 import CardComponent from './card-component';
+import { MouseCoordsContext } from './spider';
 
 
 
@@ -28,15 +29,6 @@ const SelectedCardsComponent = ({ cards, mouseUpHandle, gameState }: SelectedCar
             }}
 
             className='absolute'
-            // sx={{
-            //     minWidth: '6vw',
-            //     minHeight: '8vw',
-            //     background: 'white',
-            //     borderRadius: 3,
-            //     position: "absolute",
-            //     top: mouseCoords ? mouseCoords.top : cards[0].top,
-            //     left: mouseCoords ? mouseCoords.left : cards[0].left
-            // }}
             onMouseUp={(e) => mouseUpHandle(e)}
         >
             {

@@ -1,5 +1,6 @@
-import { FieldLeftTopType } from './../app/(routes)/spider/page';
+
   
+import { FieldLeftTopType } from "@/components/spider-components/spider";
 import { EnumSuit, EnumValue, GCard } from "./gcard";
 
 const cardTypesArray = [EnumValue.ONE, EnumValue.TWO, EnumValue.THREE, EnumValue.FOUR, EnumValue.FIVE, EnumValue.SIX, EnumValue.SEVEN, EnumValue.EIGHT, EnumValue.NINE, EnumValue.TEN, EnumValue.JACK, EnumValue.QWEEN, EnumValue.KING]

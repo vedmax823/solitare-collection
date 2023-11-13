@@ -1,6 +1,8 @@
-import { FieldLeftTopContext, FieldLeftTopType } from "@/app/(routes)/spider/page";
+
+"use client";
 import Image from "next/image";
-import { FC, useContext, useEffect, useRef } from "react";
+import { FC, useEffect, useRef } from "react";
+import { FieldLeftTopType } from "./spider";
 
 interface StopCardProps {
   handleSetTopLeftAdditional : (coords : FieldLeftTopType) => void
@@ -8,14 +10,14 @@ interface StopCardProps {
 
 const StopCardComponent : FC<StopCardProps> = ({ handleSetTopLeftAdditional  }) => {
   const lineRef = useRef<HTMLDivElement>(null)
-  const fieldTopLeft = useContext(FieldLeftTopContext)
+  
 
   useEffect(() => {
       if (lineRef.current){
           const coor = lineRef.current.getBoundingClientRect()
           handleSetTopLeftAdditional({top : coor.top, left : coor.left})
       }
-  }, [lineRef, fieldTopLeft])
+  }, [lineRef])
   return (
     <div 
       ref={lineRef}
