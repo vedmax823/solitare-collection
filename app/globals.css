@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+:root {
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+    position: fixed;
+    
+}
+
+* {
+    user-select : none
+}
