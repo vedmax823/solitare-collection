@@ -31,7 +31,7 @@ const CardComponent: React.FC<CardComponentProps> = ({
   return (
     <div
       ref={ref}
-      className={cn("absolute", borderLight)}
+      className={cn("absolute border border-solid border-zinc-300 rounded-lg", borderLight)}
       style={{ width: "6vw", height: "8vw" }}
     >
       <Image
