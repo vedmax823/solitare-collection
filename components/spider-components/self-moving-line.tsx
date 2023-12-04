@@ -19,7 +19,7 @@ const SelfMovingLineComponent = ({
   leftEnd,
   gameState,
 }: SelfMovingLineComponentProps) => {
-  const fieldTopLeft = useContext(FieldLeftTopContext)
+  // const fieldTopLeft = useContext(FieldLeftTopContext)
 
   const boxRef = useRef<HTMLDivElement>(null);
   const [coords, setCoords] = useState({
@@ -31,7 +31,7 @@ const SelfMovingLineComponent = ({
     if (boxRef.current) {
       setCoords({ top: topEnd, left: leftEnd });
     }
-  }, [boxRef, gameState, fieldTopLeft]);
+  }, [boxRef, gameState]);
   return (
     <div
       className="ease-out duration-300 absolute"

@@ -7,20 +7,20 @@ import { GameState, SuiutsEnum } from "@/models/game-state";
 import { GCard } from "@/models/gcard";
 import Modal from "@/components/ui/modal";
 
-
 export type FieldLeftTopType = {
   top: number;
   left: number;
 };
 
 const fieldLeftTopZero = { top: 0, left: 0 };
-export const FieldLeftTopContext = createContext<FieldLeftTopType>(fieldLeftTopZero)
+export const FieldLeftTopContext =
+  createContext<FieldLeftTopType>(fieldLeftTopZero);
 export const MouseCoordsContext = createContext<FieldLeftTopType | undefined>(
   undefined
 );
 
 const Spider = () => {
-  const [countOfSuiuts, setCountsOfSiuts] = useState<SuiutsEnum>(1)
+  const [countOfSuiuts, setCountsOfSiuts] = useState<SuiutsEnum>(1);
   const refField = useRef<HTMLDivElement>(null);
   const [mouseCoords, setMouseCoords] = useState<FieldLeftTopType>();
   const [fieldLeftTop, setFieldLeftTop] =
@@ -28,11 +28,11 @@ const Spider = () => {
   const [selectedCards, setSelectedCards] = useState<GCard[]>();
   const [gameState, setGameState] = useState<GameState>();
   const [isOpenDialog, setIsOpenDialog] = useState(false);
-  const [isWon, setIsWon] = useState(false)
-  const [isGameOver, setIsGameOver] = useState(false)
-  const handleSetSuitsCount = (count : SuiutsEnum) => {
-    setCountsOfSiuts(count)
-  }
+  const [isWon, setIsWon] = useState(false);
+  const [isGameOver, setIsGameOver] = useState(false);
+  const handleSetSuitsCount = (count: SuiutsEnum) => {
+    setCountsOfSiuts(count);
+  };
   useEffect(() => {
     if (refField.current) {
       const coorField = refField.current.getBoundingClientRect();
@@ -45,8 +45,8 @@ const Spider = () => {
   };
 
   const handleSetIsGameOver = () => {
-    setIsGameOver(() => true)
-  }
+    setIsGameOver(() => true);
+  };
 
   const handleClose = () => {
     setIsOpenDialog(() => false);
@@ -56,13 +56,12 @@ const Spider = () => {
     if (selectedCards) {
       setMouseCoords(() => {
         return {
-          top: e.pageY - fieldLeftTop.top - 25,
-          left: e.pageX - fieldLeftTop.left - 30,
+          top: e.pageY - 25,
+          left: e.pageX - 30,
         };
       });
     }
   };
-
 
   const selectCardHandle = (cards: GCard[] | undefined) => {
     setMouseCoords(() => undefined);
@@ -70,70 +69,68 @@ const Spider = () => {
   };
 
   const handleSetGameState = (newGameState: GameState) => {
-    setIsGameOver(() => false)
-    setIsWon(() => false)
+    setIsGameOver(() => false);
+    setIsWon(() => false);
     setGameState(() => newGameState);
   };
 
-
   useEffect(() => {
+    if (!gameState) {
+      const storageData = localStorage.getItem("spider");
 
-    if(!gameState){
-        const storageData = localStorage.getItem('spider')
-        
-        if (storageData){
-            const gameData : GameState = JSON.parse(storageData)
-            const newGameState = new GameState(gameData.howMachSuiuts)
-            newGameState.setData(gameData.lines, gameData.additional, gameData.fullCells, gameData.moves)
-            handleSetGameState(newGameState)
-
-        }
-        else{
-            handleOpen()
-        }
-    }
-
-    else{
+      if (storageData) {
+        const gameData: GameState = JSON.parse(storageData);
+        const newGameState = new GameState(gameData.howMachSuiuts);
+        newGameState.setData(
+          gameData.lines,
+          gameData.additional,
+          gameData.fullCells,
+          gameData.moves
+        );
+        handleSetGameState(newGameState);
+      } else {
+        handleOpen();
+      }
+    } else {
       if (gameState.checkIfWon()) {
-        setIsWon(() => true)
+        setIsWon(() => true);
         handleOpen();
         return;
       }
     }
-
-}, [gameState, isOpenDialog])
-
+  }, [gameState, isOpenDialog]);
 
   return (
-    <MouseCoordsContext.Provider value={mouseCoords}>
-        <FieldLeftTopContext.Provider value={fieldLeftTop} >
-        <div
-          className="w-full"
-          ref={refField}
-          onMouseMove={(e) => mouseMoveHandle(e)}
-        >
-          {gameState ? (
-            <SpiderField
-              gameState={gameState}
-              selectedCards={selectedCards}
-              selectCardHandle={selectCardHandle}
-              handleSetGameState={handleSetGameState}
-              handleOpen={handleOpen}
-              handleSetIsGameOver={handleSetIsGameOver}
-            />
-          ) : null}
-          <Modal 
-            open={isOpenDialog} 
-            onClose={handleClose} 
-            isGameOver={isGameOver} 
-            handleSetSuitsCount={handleSetSuitsCount} 
-            countOfSuits={countOfSuiuts}
+    // <MouseCoordsContext.Provider value={mouseCoords}>
+    <FieldLeftTopContext.Provider value={fieldLeftTop}>
+      <div
+        className="w-full"
+        ref={refField}
+        onMouseMove={(e) => mouseMoveHandle(e)}
+      >
+        {gameState ? (
+          <SpiderField
+            gameState={gameState}
+            selectedCards={selectedCards}
+            selectCardHandle={selectCardHandle}
             handleSetGameState={handleSetGameState}
-            isWon={isWon}
+            handleOpen={handleOpen}
+            handleSetIsGameOver={handleSetIsGameOver}
+            mouseCoords={mouseCoords}
           />
-        </div>
-        </FieldLeftTopContext.Provider>
-    </MouseCoordsContext.Provider>
+        ) : null}
+        <Modal
+          open={isOpenDialog}
+          onClose={handleClose}
+          isGameOver={isGameOver}
+          handleSetSuitsCount={handleSetSuitsCount}
+          countOfSuits={countOfSuiuts}
+          handleSetGameState={handleSetGameState}
+          isWon={isWon}
+        />
+      </div>
+    </FieldLeftTopContext.Provider>
+    // </MouseCoordsContext.Provider> */}
   );
 };
 

@@ -19,7 +19,9 @@ const CardComponent: React.FC<CardComponentProps> = ({ card, gameState, borderLi
 
   useEffect(() => {
     if (ref.current) {
+        
         const coor = ref.current.getBoundingClientRect()
+        // console.log(coor)
         card.setTopLeft(coor.top, coor.left, coor.width, coor.height)
     }
 }, [ref, gameState, fieldTopLeft])

@@ -5,7 +5,7 @@ import CardComponent from "./card-component";
 
 import { GameState } from "@/models/game-state";
 import { cn } from "@/lib/utils";
-import { FieldLeftTopContext, FieldLeftTopType } from "./spider";
+import { FieldLeftTopType } from "./spider";
 
 interface AdditionalLineProps {
   index: number;
@@ -16,7 +16,7 @@ interface AdditionalLineProps {
 }
 
 const AdditionalLine: React.FC<AdditionalLineProps> = ({ index, line, gameState, clickOnAdditional, lightAdditional }) => {
-  const fieldTopLeft = useContext(FieldLeftTopContext)
+  
   const [coords, setCoords] = useState({ top: 0, left: 0 });
   const lineRef = useRef<HTMLDivElement>(null);
   
@@ -31,7 +31,7 @@ const AdditionalLine: React.FC<AdditionalLineProps> = ({ index, line, gameState,
       gameState.setAdditionalLineCoords({top : coor.top, left : coor.left})
 
     }
-  }, [lineRef, gameState, fieldTopLeft]);
+  }, [lineRef, gameState]);
 
   const left = index * 20;
 

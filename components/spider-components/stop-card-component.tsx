@@ -12,14 +12,14 @@ interface StopCardProps {
 
 const StopCardComponent : FC<StopCardProps> = ({ handleSetTopLeftAdditional, gameState  }) => {
   const lineRef = useRef<HTMLDivElement>(null)
-  const fieldTopLeft = useContext(FieldLeftTopContext)
+  
 
   useEffect(() => {
       if (lineRef.current){
           const coor = lineRef.current.getBoundingClientRect()
           handleSetTopLeftAdditional({top : coor.top, left : coor.left})
       }
-  }, [lineRef, gameState, fieldTopLeft])
+  }, [lineRef, gameState])
   return (
     <div 
       ref={lineRef}

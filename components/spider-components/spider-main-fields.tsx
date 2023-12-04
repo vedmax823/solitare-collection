@@ -24,6 +24,7 @@ interface CardsFieldsProps {
   handleSetGameState: (newGameState: GameState) => void;
   handleOpen: () => void;
   handleSetIsGameOver: () => void;
+  mouseCoords : FieldLeftTopType | undefined;
 }
 
 type HintAndCount = {
@@ -43,6 +44,7 @@ const SpiderField: React.FC<CardsFieldsProps> = ({
   handleSetGameState,
   handleOpen,
   handleSetIsGameOver,
+  mouseCoords
 }) => {
   const [selectedLine, setSelectedLine] = useState<number>();
   const [topLeftAdditional, setTopLeftAdditional] = useState<FieldLeftTopType>({
@@ -658,11 +660,11 @@ const SpiderField: React.FC<CardsFieldsProps> = ({
           gameState={gameState}
         />
       ) : null}
-      {selectedCards ? (
+      {(selectedCards && mouseCoords) ? (
         <SelectedCardsComponent
           cards={selectedCards}
           mouseUpHandle={mouseUpHandle}
-          gameState={gameState}
+          mouseCoords={mouseCoords}
         />
       ) : null}
       {additionalOpened &&
