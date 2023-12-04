@@ -28,6 +28,9 @@ const EmptyCardComponent: React.FC<EmptyCardProps> = ({
         src="/images/emptySpace.png"
         fill
         draggable={false}
+        style={{
+          objectFit: 'cover',
+        }}
       />
     </div>
   );

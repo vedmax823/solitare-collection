@@ -9,39 +9,55 @@ import { FieldLeftTopContext } from "./spider";
 
 interface CardComponentProps {
   card: GCard;
-  gameState : GameState,
-  borderLight? : string;
+  gameState: GameState;
+  borderLight?: string;
 }
 
-const CardComponent: React.FC<CardComponentProps> = ({ card, gameState, borderLight }) => {
+const CardComponent: React.FC<CardComponentProps> = ({
+  card,
+  gameState,
+  borderLight,
+}) => {
   const ref = useRef<HTMLDivElement>(null);
-  const fieldTopLeft = useContext(FieldLeftTopContext)
+  const fieldTopLeft = useContext(FieldLeftTopContext);
 
   useEffect(() => {
     if (ref.current) {
-        
-        const coor = ref.current.getBoundingClientRect()
-        // console.log(coor)
-        card.setTopLeft(coor.top, coor.left, coor.width, coor.height)
+      const coor = ref.current.getBoundingClientRect();
+      // console.log(coor)
+      card.setTopLeft(coor.top, coor.left, coor.width, coor.height);
     }
-}, [ref, gameState, fieldTopLeft])
+  }, [ref, gameState, fieldTopLeft]);
   return (
-    <div 
-        ref={ref}
-        className={cn("absolute", borderLight)}
-        style={{width : "6vw", height:"8vw"}}
+    <div
+      ref={ref}
+      className={cn("absolute", borderLight)}
+      style={{ width: "6vw", height: "8vw" }}
     >
       <Image
-        src={
-          card.isOpen
-            ? `/images/${card.suit.charAt(0)}${card.value}.png`
-            : "/images/spider_red.png"
-        }
+        src={`/images/${card.suit.charAt(0)}${card.value}.png`}
         fill
-        
         alt="card"
         draggable={false}
+        style={{
+          objectFit: 'cover',
+        }}
       />
+      { !card.isOpen ? 
+      <Image
+        src={
+         
+            
+            "/images/spider_red.png"
+        }
+        fill
+        alt="card"
+        style={{
+          objectFit: 'cover',
+        }}
+        draggable={false}
+      />
+      : null}
     </div>
   );
 };

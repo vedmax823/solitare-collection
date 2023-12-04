@@ -31,6 +31,9 @@ const StopCardComponent : FC<StopCardProps> = ({ handleSetTopLeftAdditional, gam
         alt="stop"
         fill
         draggable={false}
+        style={{
+          objectFit: 'cover',
+        }}
       />
     </div>
   );

@@ -10,14 +10,12 @@ import Image from "next/image";
 interface SelectedCardsProps {
   cards: GCard[];
   mouseUpHandle: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
-  gameState: GameState;
   mouseCoords: FieldLeftTopType;
 }
 
 const SelectedCardsComponent = ({
   cards,
   mouseUpHandle,
-  gameState,
   mouseCoords,
 }: SelectedCardsProps) => {
   console.log(mouseCoords);
@@ -57,6 +55,9 @@ const SelectedCardsComponent = ({
                 fill
                 alt="card"
                 draggable={false}
+                style={{
+                    objectFit: 'cover',
+                  }}
               />
             </div>
           </div>

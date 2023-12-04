@@ -41,6 +41,9 @@ const SolvedCardsComponent: React.FC<SolvedCardProps> = ({
             alt="empty"
             fill
             draggable={false}
+            style={{
+              objectFit: 'cover',
+            }}
           />
       )}
     </div>
